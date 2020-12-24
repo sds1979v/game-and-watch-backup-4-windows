@@ -28,7 +28,10 @@ if(!($shaBackup -eq (Get-FileHash -Path "$Loc\backups\internal_flash_backup.bin"
     break
 }
 
-Write-Host "Unlocking device... (Takes up to 30 seconds.)"    
+Write-Host "When you're ready push the Power button on the Game and Watch, keep it pressed and press Enter"
+Pause
+Write-Host "Unlocking device... (Takes up to 30 seconds.)" 
+   
 Invoke-Expression "openocd -f $Interface_cfg -c 'init;' -c 'halt;' -f $rdp0_config" *>&1 | Out-File "$Loc\logs\4_openocd.log" -Encoding ascii -Append
 if(-not $LASTEXITCODE -eq 0){
     Write-Host "Unlocking device failed."
