@@ -1,4 +1,4 @@
-# Game and Watch Backup and Restore tools
+# Game and Watch Backup and Restore tools 4 Windows
 
 This repository contains pre-built tools for backing up & restoring the original Game and Watch firmware.
 
@@ -6,7 +6,7 @@ What you'll need:
 - A Game & Watch in original state
 - An ARM debug probe (Tested with J-Link and ST-Link compatible devices)
 - Connections to the [debug port](https://twitter.com/ghidraninja/status/1326860677353512960) - testclips or soldered wires work well!
-- A computer with Ubuntu 20.04 or compatible.
+- A computer with Windows 10 and Powershell.
 
 
 ## Warnings & disclaimer
@@ -14,30 +14,46 @@ What you'll need:
 The tools in this repository will modify both the internal and the external flash of the Game and Watch.
 While we tested the scripts to our best ability, we can not guarantee that there won't be failures that will leave your
 Game & Watch damaged. Use these tools at your own risk. If you feel like you don't understand what you're doing it might be best to let someone with more experience help (and teach) you!
+Feel free to join our [discord channel](https://discord.gg/rE2nHVAKvn) and ask any support questions in *#game-and-watch-support*.
 
+## Read this first
+
+This manual is for developers, and not yet suitable for end-users. The goal is to enable other developers to be able to contribute to Game & Watch development, and hopefully eventually get to a point where we can release end-user instructions :)
+
+Please note that we recommend either a (full-size, not mini) J-Link/J-Link Edu, or an offical ST-Link. ST-Link clones have caused a lot of issues, please avoid them. Also please disconnect the battery before you continue.
 
 ## Connecting the debugger
 
-When connecting the debugger ensrue that at least SWDIO, SWDCLK and GND are connected. Do *not* under any circumstances connect 3.3V to the VDD connection. If your debug probe (for example ST-Link clones) does not have a VTREF connector, just leave VDD unconnected. Connecting 3.3V to VDD will likely destroy your SPI flash.
+When connecting the debugger ensure that at least SWDIO, SWDCLK and GND are connected. Do *not* under any circumstances connect 3.3V to the VDD connection. If your debug probe (for example ST-Link clones) does not have a VTREF connector, just leave VDD unconnected. Connecting 3.3V to VDD will likely destroy your SPI flash.
 
+### Supported Debuggers
 
-## Ubuntu setup
+Please either use an official ST-Link (not one of the small USB stick clones) or a full-size J-Link. Others might work, a lot of them do not work with the 1.9V logic levels used on the Game and Watch.
+
+Programmers we had a lot of trouble with: J-Link EDU Mini (does not work), cheap ST-Link clones.
+
+## Powershell setup
 
 Install the required tools:
 
+Open Powershell as Administrator and launch:
 ```
-sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi gdb-arm-none-eabi openocd python3
+Set-ExecutionPolicy Unrestricted
+```
+then
+```
+.\0_installtools.ps1
 ```
 
 ## Usage
 
 The scripts are split into 5 parts:
 
-- 1_sanity_check.sh - Performs sanity check and makes sure all required tools are available
-- 2_backup_flash.sh - Backs up the contents of the SPI flash. Does not modify device contents.
-- 3_backup_internal_flash.sh - Backs up the internal flash. To do this the contents of the SPI flash are modified. Your device will stop working until it's restored in step 5.
-- 4_unlock_device.sh - This will disable the active read protection. This will erase the internal flash of the STM32.
-- 5_restore.sh - This will restore the original firmware.
+- PS_1_sanity_check.ps1 - Performs sanity check and makes sure all required tools are available
+- PS_2_backup_flash.ps1 - Backs up the contents of the SPI flash. Does not modify device contents.
+- PS_3_backup_internal_flash.ps1 - Backs up the internal flash. To do this the contents of the SPI flash are modified. Your device will stop working until it's restored in step 5.
+- PS_4_unlock_device.ps1 - This will disable the active read protection. This will erase the internal flash of the STM32.
+- PS_5_restore.ps1 - This will restore the original firmware.
 
 Just run these scripts *from the checked out directory* one after each other. All scripts are safe to be re-run in case of error.
 
@@ -53,18 +69,8 @@ If a script fails and the device does not work after power-cycling, repeat the s
 
 ## Sources for binaries
 
-The binaries in firmware/ are based on:
+The binaries and firmware are based on:
 
 - [flashloader](https://github.com/ghidraninja/game-and-watch-flashloader)
 - [flashdumper](https://github.com/ghidraninja/game-and-watch-flashdumper)
-
-## Windows version
-
-Conversion of bash shell scripts to Powershell scripts is proceeding at an infinetely slow pace
-
-Powershell setup
-- Open Powershell as Administrator
-- Launch command "Set-ExecutionPolicy Unrestricted"
-- Launch script ".\0_installtools.ps1"
-
-Usage is the same as per Linux!
+- [game-and-watch-backup](https://github.com/ghidraninja/game-and-watch-backup)
