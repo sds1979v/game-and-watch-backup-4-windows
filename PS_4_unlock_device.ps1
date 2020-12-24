@@ -2,9 +2,10 @@ Clear-Host
 
 $Loc = $PSScriptRoot
 $rdp0_config = "$Loc\openocd\rdp0.cfg"
-$Interface_cfg = "$Loc\openocd\interface_" + $1 + ".cfg"
+
 Write-Host "Usage: <Adapter: jlink or stlink>"
 $1 = Read-Host
+$Interface_cfg = "$Loc\openocd\interface_" + $1 + ".cfg"
 if(!(Test-Path "$Loc\logs\")){
   New-Item -Path $PSScriptRoot -Name "logs" -ItemType "directory"
 }

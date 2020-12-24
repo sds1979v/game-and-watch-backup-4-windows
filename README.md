@@ -76,4 +76,5 @@ The binaries and firmware are based on:
 - [game-and-watch-backup](https://github.com/ghidraninja/game-and-watch-backup)
 
 All credits for the hard work go to stacksmashing and kbeckmann
+
 Thank you guys!
