@@ -26,7 +26,7 @@ if (!(($pathShaITCM) = (Get-FileHash -Path $pathITCM -algorithm SHA1))){
 }
 
 $in = $PSScriptRoot + "\backups\flash_backup.bin"
-$out = $PSScriptRoot + "\flash_backup_checksummed.bin"
+$out = $PSScriptRoot + "\backups\flash_backup_checksummed.bin"
 Write-Host "Extracting checksummed part..."
 dd if=$in of=$out count=1040384 bs=1
 

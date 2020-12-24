@@ -14,7 +14,7 @@ $IMAGE=$2
 
 function get_symbol {
     param($name)
-	$objdump_cmd= objdump -t $ELF
+	$objdump_cmd= arm-none-eabi-objdump -t $ELF
     $size = $objdump_cmd | Select-String "$name" 
     $size = "$size".Split(" ")[0]
     return "0x" + '{0:X8}' -f $size.ToUpper()
