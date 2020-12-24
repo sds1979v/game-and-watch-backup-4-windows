@@ -42,7 +42,7 @@ Set-ExecutionPolicy Unrestricted
 ```
 then
 ```
-.\0_installtools.ps1
+.\PS_0_installtools.ps1
 ```
 
 ## Usage
