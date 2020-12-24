@@ -14,7 +14,7 @@ What you'll need:
 The tools in this repository will modify both the internal and the external flash of the Game and Watch.
 While we tested the scripts to our best ability, we can not guarantee that there won't be failures that will leave your
 Game & Watch damaged. Use these tools at your own risk. If you feel like you don't understand what you're doing it might be best to let someone with more experience help (and teach) you!
-Feel free to join our [discord channel](https://discord.gg/rE2nHVAKvn) and ask any support questions in *#game-and-watch-support*.
+Feel free to join the dedicated [discord channel](https://discord.gg/rE2nHVAKvn) and ask any support questions in *#game-and-watch-support*.
 
 ## Read this first
 
@@ -74,3 +74,6 @@ The binaries and firmware are based on:
 - [flashloader](https://github.com/ghidraninja/game-and-watch-flashloader)
 - [flashdumper](https://github.com/ghidraninja/game-and-watch-flashdumper)
 - [game-and-watch-backup](https://github.com/ghidraninja/game-and-watch-backup)
+
+All credits for the hard work go to stacksmashing and kbeckmann
+Thank you guys!
