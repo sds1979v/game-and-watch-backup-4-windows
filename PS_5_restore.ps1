@@ -31,6 +31,8 @@ if(-not $LASTEXITCODE -eq 0){
     break
 }
 
+Write-Host "Let's Powercycle the Game and Watch, are you OK with that?"
+Pause
 Write-Host "Restoring internal flash..."
 
 Invoke-Expression "openocd -f $Interface_cfg -c 'init;' -c 'halt;' -c 'program $backup 0x08000000 verify;' -c 'exit;'" *>&1  | Out-File "$Loc\logs\5_openocd.log" -Encoding ascii -Append
