@@ -21,14 +21,6 @@ if(!(Test-Path "$Loc\backups\flash_backup.bin")){
 
 Write-Host "Ok, restoring original firmware! (We will not lock the device, so you won't have to repeat this procedure!)"
 
-Write-Host "Restoring internal flash..."
-
-Invoke-Expression "openocd -f $Interface_cfg -c 'init;' -c 'halt;' -c 'program $backup 0x08000000 verify;' -c 'exit;'" *>&1  | Out-File "$Loc\logs\5_openocd.log" -Encoding ascii -Append
-if(-not $LASTEXITCODE -eq 0){
-    Write-Host "Restoring internal flash failed. Check debug connection and try again."
-    break
-}
-
 Write-Host "When you're ready push the Power button on the Game and Watch, keep it pressed and press Enter"
 Pause
 Write-Host "Restoring SPI flash..."
@@ -36,6 +28,14 @@ $scriptPath ="$Loc\scripts\flashloader.ps1"
 Invoke-Expression "$scriptPath $adapter backups\flash_backup.bin"
 if(-not $LASTEXITCODE -eq 0){
     Write-Host "Restoring SPI flash failed. Check debug connection and try again."
+    break
+}
+
+Write-Host "Restoring internal flash..."
+
+Invoke-Expression "openocd -f $Interface_cfg -c 'init;' -c 'halt;' -c 'program $backup 0x08000000 verify;' -c 'exit;'" *>&1  | Out-File "$Loc\logs\5_openocd.log" -Encoding ascii -Append
+if(-not $LASTEXITCODE -eq 0){
+    Write-Host "Restoring internal flash failed. Check debug connection and try again."
     break
 }
 
