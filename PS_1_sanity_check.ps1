@@ -1,7 +1,7 @@
 Clear-Host
 Write-Host "Running sanity checks..."
 
-Invoke-Expression 'openocd -v'  *>&1 | Out-Null
+Invoke-Expression 'openocd --version'  *>&1 | Out-Null
 if(-not $LASTEXITCODE -eq 0){
     Write-Host "OpenOCD does not seem to be working. Please validate that you have it installed correctly!"
     break
